@@ -14,3 +14,5 @@ RUN pacman -S python python-pillow --noconfirm
 RUN pacman -S gcc clang --noconfirm
 RUN pacman -S jdk10-openjdk --noconfirm
 
+# install testing helpers
+RUN pacman -S junit expect --noconfirm
