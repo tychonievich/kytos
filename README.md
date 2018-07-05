@@ -71,12 +71,12 @@ Once the daemon is running, users can submit jobs to it by
     to the submission path; is also uses `$DIR` to refer to the main
     sandbox directory. For example, the following directories
     
-     --------  -----------------------
-      `$DIR`    `/opt/sandbox-runner`
-      `$TP`     `1110/pa01`
-      `$SP`     `10am/mst3k`
-     --------  -----------------------
-    
+     | Variable| Value                  |
+     |:-------:|:-----------------------|
+     | `$DIR`  | `/opt/sandbox-runner`  |
+     | `$TP`   | `1110/pa01`            |
+     | `$SP`   | `10am/mst3k`           |
+     
     could give rise to the following directory tree
     
         /opt/sandbox-runner/
