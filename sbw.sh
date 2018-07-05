@@ -31,7 +31,7 @@ if [ "$USER" != "root" ]
 then
 	echo "Requires root priviledges; attempting to become root"
 	SCRIPT="$(readlink -f "$0")"
-	echo sudo bash "$SCRIPT"
+	echo '>>>>' sudo bash "$SCRIPT"
 	sudo "/bin/bash" "$SCRIPT"
 	exit $?
 fi
