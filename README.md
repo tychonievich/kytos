@@ -177,17 +177,18 @@ Datetimes are formatted as `date +%Y%m%d-%H%M%S.%N`. Approximate total
 runtime (including docker overhead) can be found by comparing a filename
 to it's stat date, as e.g., with the following Python script:
 
+````python
+import os, os.path, datetime, sys
 
-    import os, os.path, datetime, sys
-
-    for p in sys.argv[1:]:
-        n=os.path.basename(p)
-        start_ns = int(datetime.datetime.strptime(n[:15], '%Y%m%d-%H%M%S').timestamp())*(10**9) + int(n[16:25])
-        try:
-            end_ns = os.stat(p).st_mtime_ns
-        except:
-            end_ns = os.path.getmtime(p)*(10**9)
-        print((end_ns - start_ns) / (10**9), 'seconds')
+for p in sys.argv[1:]:
+    n=os.path.basename(p)
+    start_ns = int(datetime.datetime.strptime(n[:15], '%Y%m%d-%H%M%S').timestamp())*(10**9) + int(n[16:25])
+    try:
+        end_ns = os.stat(p).st_mtime_ns
+    except:
+        end_ns = os.path.getmtime(p)*(10**9)
+    print((end_ns - start_ns) / (10**9), 'seconds')
+````
 
 ## FAQ
 
@@ -195,8 +196,8 @@ to it's stat date, as e.g., with the following Python script:
 
 Write a tester to do this for you and run the tester.  Experience with 
 [archimedes](https://github.com/tychonievich/archimedes) taught us that
-testers with input sometimes want to be quite nuanced, enumating a 
-prompt-reply tty or the like, and that eager stdin readers in some
+testers with input sometimes want to be quite nuanced, emulating a 
+prompt-reply tty or the like, and that eager `stdin` readers in some
 default runtimes make this less than obviously portable.
 
 Consider using [`expect`](https://www.nist.gov/services-resources/software/expect)
@@ -206,3 +207,5 @@ standard library `pexepect` or
 always means having different processes running the code and pretending
 to be the user, and evne then is more nuances than you might expect.
 
+I do have a much simpler (and thus less featureful) `expect` tool on my
+to-do list, but pretty far down.
