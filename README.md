@@ -204,8 +204,8 @@ Consider using [`expect`](https://www.nist.gov/services-resources/software/expec
 or an implementation/clone  for your language (e.g., Python's 
 standard library `pexepect` or
 <https://github.com/ronniedong/Expect-for-Java>). Note this almost
-always means having different processes running the code and pretending
-to be the user, and evne then is more nuances than you might expect.
+always means using at least two processes (one running the code and one pretending
+to be the user), and even then is more nuanced than you might expect.
 
-I do have a much simpler (and thus less featureful) `expect` tool on my
+I do have creating a much simpler-to-use (and thus less featureful) `expect` tool on my
 to-do list, but pretty far down.
