@@ -22,7 +22,7 @@ Pick a location for the user-accessible parts of the project. You need
 to have execute permissions on the directory for all user accounts who
 will place code there (e.g., group `instructors` and user `www-data`
 submissions come from apache scripts and shell access by instructors).
-Do not create additional directoris there; this will be done by the
+Do not create additional directories there; this will be done by the
 daemon script.
 
 Ensure you have a docker image you want to use for running code. The

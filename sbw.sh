@@ -164,7 +164,7 @@ function handle {
     [ "$net" = "true" ] && net=default || net=none
     
     # copy support classes to submission directory
-    if [ -d $sloc ]; then cp -f -p $sloc/* $SUB/$tail/; fi
+    if [ -d $sloc ]; then cp -f -p -r $sloc/* $SUB/$tail/; fi
 
 	echo "Running with $tout-second timeout" >> "$log.status"; ownfix "$log.status";
 
@@ -191,7 +191,15 @@ function handle {
         docker rm "$pid" &>/dev/null # echos PID removed
         echo "exit code $end" >> "$log.status"
     fi
-    	
+
+    if false # disable removing support files (may have changed)
+    then
+        if [ -d $sloc ]
+        then for sup in $sloc/*
+            do rm -r "$sup"
+            done
+        fi
+    fi
 	
 	# make log files accessible to submitting user
 	[ -f "$log.status" ] && ownfix "$log.status";
