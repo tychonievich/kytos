@@ -153,7 +153,7 @@ function handle {
     tout=$(jq ".timeout // $DEF_TIMEOUT" "$cloc.json")
     [ "$tout" -gt $MAX_TIMEOUT ] && tout=MAX_TIMEOUT
     # Read image with default
-    image=$(jq ".timeout // \"$DEF_IMAGE\"" -r "$cloc.json")
+    image=$(jq ".image // \"$DEF_IMAGE\"" -r "$cloc.json")
     
     if docker inspect $image -f " " &>/dev/null; then echo -n '' >/dev/null;
     else echo "No image $image found in docker" >> "$log.status"; ownfix "$log.status"; return 5; 
