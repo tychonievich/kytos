@@ -18,14 +18,11 @@
 
 
 #################### Default values (overridable) ####################
-DIR=/opt/sandbox-runner
+DIR=/opt/sandbox
 DEF_TIMEOUT=10
 DEF_IMAGE=sandbox_machine
-MAX_TIMEOUT=300
+MAX_TIMEOUT=900
 ######################### End default values #########################
-
-mkdir -p $DIR -m 755 # only needed once, but put here so it always works
-
 
 if [ "$USER" != "root" ]
 then
@@ -35,6 +32,9 @@ then
 	sudo "/bin/bash" "$SCRIPT"
 	exit $?
 fi
+
+mkdir -p $DIR -m 755 # only needed once, but put here so it always works
+
 
 
 # Single copy only!
@@ -141,6 +141,9 @@ function handle {
 	while [ -n "${cloc#$CMD}" ] && [ ! -e "$cloc.json" ]
 	do
 		cloc="$(dirname "$cloc")"
+    done
+ 	while [ -n "${sloc#$CMD}" ] && [ ! -d "$sloc" ]
+ 	do
 		sloc="$(dirname "$sloc")"
 	done
 	if [ ! -e "$cloc.json" ]; then echo "No command file found" >> "$log.status"; ownfix "$log.status"; return 3; fi
@@ -151,7 +154,7 @@ function handle {
     
     # Read timeout with default
     tout=$(jq ".timeout // $DEF_TIMEOUT" "$cloc.json")
-    [ "$tout" -gt $MAX_TIMEOUT ] && tout=MAX_TIMEOUT
+    [ "$tout" -gt $MAX_TIMEOUT ] && tout=$MAX_TIMEOUT
     # Read image with default
     image=$(jq ".image // \"$DEF_IMAGE\"" -r "$cloc.json")
     
@@ -176,7 +179,8 @@ function handle {
         --user nobody \
         --network=$net \
         --memory=2g \
-        --pids-limit=64 \
+        --pids-limit=512 \
+        --ulimit nproc=1024:2048 \
         "$image" \
         "${cmd[@]}")
     end=$(timeout $tout docker wait "$pid")
