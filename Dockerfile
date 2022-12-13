@@ -6,7 +6,7 @@ FROM archlinux
 
 # update the arch build
 RUN pacman -Scc
-RUN pacman -Syyuu --noconfirm
+RUN pacman -Syyu --noconfirm
 RUN pacman -S --needed sudo bc imagemagick graphicsmagick ffmpeg --noconfirm
 RUN pacman -S --needed unzip --noconfirm
 
@@ -22,7 +22,7 @@ RUN pacman -S --needed go --noconfirm
 RUN pacman -S --needed kotlin --noconfirm
 RUN pacman -S --needed dart --noconfirm
 RUN pacman -S --needed make --noconfirm
-RUN pacman -S --needed ghc cabal-install --noconfirm
+RUN pacman -S --needed ghc cabal-install stack --noconfirm
 RUN pacman -S --needed npm typescript --noconfirm
 RUN pacman -S --needed lua luajit --noconfirm
 RUN pacman -S --needed openmp --noconfirm

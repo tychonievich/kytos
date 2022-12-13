@@ -21,7 +21,7 @@
 DIR=/opt/sandbox
 DEF_TIMEOUT=10
 DEF_IMAGE=sandbox_machine
-MAX_TIMEOUT=900
+MAX_TIMEOUT=1800
 ######################### End default values #########################
 
 if [ "$USER" != "root" ]
@@ -168,6 +168,9 @@ function handle {
     
     # copy support classes to submission directory
     if [ -d $sloc ]; then cp -f -p -r $sloc/* $SUB/$tail/; fi
+
+    # let stack's paranoid rules make directories
+    chown nobody:nogroup "$SUB/$tail"
 
 	echo "Running with $tout-second timeout" >> "$log.status"; ownfix "$log.status";
 
